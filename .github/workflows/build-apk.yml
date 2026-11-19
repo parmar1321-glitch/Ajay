@@ -1,4 +1,5 @@
 
+
 name: Build My Car Manager APK
 
 on:
@@ -21,16 +22,16 @@ jobs:
           java-version: '17'
 
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools platforms;android-35 build-tools;35.0.0
 
       - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
 
       - name: Extract Android project
         run: |
-          ZIP_FILE=$(find . -maxdepth 1 -type f -name 'My_Car_Manager_Android_Source*.zip' | head -n 1)
-          if [ -z "$ZIP_FILE" ]; then
-            echo "Android source ZIP not found"
-            exit 1
-          fi
+          ZIP_FILE=$(find . -maxdepth 1 -name 'My_Car_Manager_Android_Source*.zip' | head -n 1)
           mkdir android-source
           unzip -q "$ZIP_FILE" -d android-source
 
